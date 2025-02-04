@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,12 +16,15 @@
       flex-direction: column;
       align-items: center;
     }
+
     h1 {
       color: #00ffcc;
     }
+
     form {
       margin: 20px 0;
     }
+
     input[type="text"] {
       padding: 10px;
       font-size: 16px;
@@ -30,6 +34,7 @@
       background-color: #333;
       color: #fff;
     }
+
     button {
       padding: 10px 20px;
       font-size: 16px;
@@ -40,9 +45,11 @@
       cursor: pointer;
       margin-left: 10px;
     }
+
     button:hover {
       background-color: #00cca3;
     }
+
     iframe {
       width: 80%;
       height: 60vh;
@@ -51,23 +58,76 @@
       border-radius: 8px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
+
+    .suggestions {
+      background-color: #333;
+      border: 1px solid #555;
+      border-radius: 5px;
+      max-height: 150px;
+      overflow-y: auto;
+      position: absolute;
+      width: 300px;
+      z-index: 1000;
+    }
+
+    .suggestions div {
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .suggestions div:hover {
+      background-color: #444;
+    }
   </style>
 </head>
+
 <body>
   <h1>TV Online Player</h1>
   <form onsubmit="loadChannel(event)">
     <label for="channelInput">Digite o nome do canal:</label><br>
-    <input type="text" id="channelInput" placeholder="Ex: bbb25a, animalplanet" required>
+    <input type="text" id="channelInput" placeholder="Ex: bbb25a, animalplanet" required oninput="showSuggestions()">
+    <div class="suggestions" id="suggestionBox" style="display: none;"></div>
     <button type="submit">Assistir</button>
   </form>
   <iframe id="channelFrame" src="" allowfullscreen></iframe>
   <script>
+    const channels = [
+      "bbb25a", "bbb25b", "aie", "adultswim", "amc", "animalplanet", "arte1", "axn", "band", "bandnews", "bandsports", "bis", "canalbrasil", "cancaonova", "cartoonnetwork", "cnn", "combate", "discoverychannel", "discoveryhomeandhealth", "discoverykids", "discoveryturbo", "disneychannel", "disneyjunior", "disneyxd", "espn", "espn2", "espn3", "fox", "foxlife", "fx", "globo", "gloob", "gnt", "hbo", "hbo2", "hbofamily", "hboplus", "history", "megapix", "mtv", "multishow", "natgeo", "natgeowild", "nickelodeon", "paramount", "premiere", "record", "sbtr", "sony", "sportv", "sportv2", "sportv3", "syfy", "tbs", "telecineaction", "telecinecult", "telecinefun", "telecinepipoca", "telecinetouch", "telecinepremium", "tnt", "tooncast", "universal", "vh1", "warner"
+    ];
+
+    function showSuggestions() {
+      const input = document.getElementById('channelInput').value.toLowerCase();
+      const suggestionBox = document.getElementById('suggestionBox');
+      suggestionBox.innerHTML = '';
+      if (input) {
+        const filtered = channels.filter(channel => channel.includes(input));
+        if (filtered.length > 0) {
+          suggestionBox.style.display = 'block';
+          filtered.forEach(channel => {
+            const suggestion = document.createElement('div');
+            suggestion.textContent = channel;
+            suggestion.onclick = () => {
+              document.getElementById('channelInput').value = channel;
+              suggestionBox.style.display = 'none';
+            };
+            suggestionBox.appendChild(suggestion);
+          });
+        } else {
+          suggestionBox.style.display = 'none';
+        }
+      } else {
+        suggestionBox.style.display = 'none';
+      }
+    }
+
     function loadChannel(event) {
       event.preventDefault();
       const channelName = document.getElementById('channelInput').value.trim();
       const url = `https://redecanaistv.ps/player3/ch.php?canal=${channelName}`;
       document.getElementById('channelFrame').src = url;
+      document.getElementById('suggestionBox').style.display = 'none';
     }
   </script>
 </body>
+
 </html>
