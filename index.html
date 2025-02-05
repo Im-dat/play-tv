@@ -84,8 +84,7 @@
 <body>
   <h1>TV Online Player</h1>
   <form onsubmit="loadChannel(event)">
-    <label for="channelInput">Digite o nome do canal:</label><br>
-    <input type="text" id="channelInput" placeholder="Ex: bbb25a, animalplanet" required oninput="showSuggestions()">
+    <input type="text" id="channelInput" placeholder="Digite o nome do canal:" required oninput="showSuggestions()">
     <div class="suggestions" id="suggestionBox" style="display: none;"></div>
     <button type="submit">Assistir</button>
   </form>
