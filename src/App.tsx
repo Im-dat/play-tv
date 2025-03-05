@@ -18,17 +18,17 @@ function App() {
             <Tv2 className="w-8 h-8 text-cyan-500" />
             <h1 className="text-3xl font-bold text-cyan-500">TV Online Player</h1>
           </div>
-
-          <SearchBar
-            channels={channels}
-            onChannelSelect={handleChannelSelect}
+          
+          <SearchBar 
+            channels={channels} 
+            onChannelSelect={handleChannelSelect} 
           />
         </div>
 
         {currentChannel && (
           <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
             <iframe
-              src={`https://redecanaistv.ps/player3/ch.php?canal=${currentChannel}`}
+              src={`https://redecanaistv.ps/player3/ch.php?canal=${currentChannel}&noads=1`}
               className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
               allowFullScreen
             />
