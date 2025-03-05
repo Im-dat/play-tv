@@ -31,6 +31,13 @@ function App() {
               src={`https://redecanaistv.ps/player3/ch.php?canal=${currentChannel}&noads=1`}
               className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
               allowFullScreen
+              style={{ display: 'block' }}
+              onLoad={(e) => {
+                const iframeDocument = e.target.contentDocument || e.target.contentWindow.document;
+                const style = document.createElement('style');
+                style.innerHTML = '.watermark-class { display: none !important; }'; // Replace '.watermark-class' with the actual class or ID of the watermark
+                iframeDocument.head.appendChild(style);
+              }}
             />
           </div>
         )}
