@@ -28,7 +28,7 @@ function App() {
         {currentChannel && (
           <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
             <iframe
-              src={`https://redecanaistv.ps/player3/ch.php?canal=${currentChannel}`}
+              src={`https://redecanaistv.ps/player3/ch.php?canal=${currentChannel}&noads=1`}
               className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
               allowFullScreen
             />
